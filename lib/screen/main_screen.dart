@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:football_app/api/resource.dart';
+import 'package:football_app/bloc/leagues_bloc.dart';
+import 'package:football_app/component/event_list.dart';
+import 'package:football_app/model/league.dart';
+import 'package:football_app/screen/search_screen.dart';
+import 'package:football_app/state/request_state.dart';
 
 const String mainRoute = "/mainRoute";
 
@@ -8,7 +16,39 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Football Event"),
+            InkWell(
+              child: Icon(
+                Icons.search,
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, searchRoute);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: SafeArea(
+        child: Container(
+          child: BlocBuilder<LeaguesBloc, Resource<LeagueResponse>>(
+            builder: (BuildContext context, state) {
+              if (state.state == RequestState.requestSucceed) {
+                return EventList(leagues: state.data.leagues);
+              } else if (state.state == RequestState.onProgress) {
+                return SpinKitCircle(
+                  size: 50,
+                  color: Colors.blue,
+                );
+              }
+              return Container();
+            },
+          ),
+        ),
+      ),
     );
   }
 }
