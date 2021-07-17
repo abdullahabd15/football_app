@@ -64,7 +64,7 @@ class _SearchBarState extends State<SearchBar> {
           ),
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
-          hintText: "Cari Klub Sepak Bola...",
+          hintText: "Search Football Club...",
           hintStyle: TextStyle(color: Colors.grey[300])
         ),
       ),

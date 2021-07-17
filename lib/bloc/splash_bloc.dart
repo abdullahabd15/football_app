@@ -10,7 +10,7 @@ class SplashBloc extends Bloc<SplashEvent, bool> {
   @override
   Stream<bool> mapEventToState(SplashEvent event) async* {
     if (event == SplashEvent.loading) {
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(Duration(milliseconds: 3000));
       add(SplashEvent.loadingDone);
     } else {
       yield true;
