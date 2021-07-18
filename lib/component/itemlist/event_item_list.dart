@@ -57,16 +57,14 @@ class _EventItemListState extends State<EventItemList>
                           TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
                     ),
                   ),
-                  Flexible(
-                    child: ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        var event = events[index];
-                        return _buildEvent(event);
-                      },
-                      itemCount: events.length,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                    ),
+                  ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      var event = events[index];
+                      return _buildEvent(event);
+                    },
+                    itemCount: events.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                   ),
                   Divider(
                     thickness: 1,
@@ -94,51 +92,50 @@ class _EventItemListState extends State<EventItemList>
           : Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 _buildImageEvent(event),
                 SizedBox(
                   width: 10,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          DateUtil.convertToLocalFormat(event?.strTimestamp),
-                          style: TextStyle(fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Flexible(
-                            child: Text(
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        DateUtil.convertToLocalFormat(event?.strTimestamp),
+                        style: TextStyle(fontWeight: FontWeight.w400),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Flexible(
+                        child: Text(
                           event?.strEvent ?? "",
                           style: TextStyle(fontWeight: FontWeight.w800),
-                        )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Status :"),
-                        SizedBox(
-                          width: 8,
                         ),
-                        Flexible(
-                          child: Text(
-                            event?.strStatus ?? "",
-                            style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text("Status :"),
+                          SizedBox(
+                            width: 8,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Expanded(
+                            child: Text(
+                              event?.strStatus ?? "",
+                              style: TextStyle(fontWeight: FontWeight.w800),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

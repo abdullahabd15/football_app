@@ -18,35 +18,38 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text("Football Event"),
-            InkWell(
+          ],
+        ),
+        actions: [
+          InkWell(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Icon(
                 Icons.search,
               ),
-              onTap: () {
-                Navigator.pushNamed(context, searchRoute);
-              },
             ),
-          ],
-        ),
+            onTap: () {
+              Navigator.pushNamed(context, searchRoute);
+            },
+          )
+        ],
       ),
       body: SafeArea(
-        child: Container(
-          child: BlocBuilder<LeaguesBloc, Resource<LeagueResponse>>(
-            builder: (BuildContext context, state) {
-              if (state.state == RequestState.requestSucceed) {
-                return EventList(leagues: state.data.leagues);
-              } else if (state.state == RequestState.onProgress) {
-                return SpinKitCircle(
-                  size: 50,
-                  color: Colors.blue,
-                );
-              }
-              return Container();
-            },
-          ),
+        child: BlocBuilder<LeaguesBloc, Resource<LeagueResponse>>(
+          builder: (BuildContext context, state) {
+            if (state.state == RequestState.requestSucceed) {
+              return EventList(leagues: state.data.leagues);
+            } else if (state.state == RequestState.onProgress) {
+              return SpinKitCircle(
+                size: 50,
+                color: Colors.blue,
+              );
+            }
+            return Container();
+          },
         ),
       ),
     );

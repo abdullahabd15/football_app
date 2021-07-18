@@ -41,19 +41,17 @@ class _EventListState extends State<EventList> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return EventItemList(
-            league: widget.leagues[index],
-            loadingListener: (isLoading) {
-              widget.leagues[index].isLoading = isLoading;
-            },
-          );
-        },
-        itemCount: _itemCount,
-        controller: _scrollController,
-      ),
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return EventItemList(
+          league: widget.leagues[index],
+          loadingListener: (isLoading) {
+            widget.leagues[index].isLoading = isLoading;
+          },
+        );
+      },
+      itemCount: _itemCount,
+      controller: _scrollController,
     );
   }
 
