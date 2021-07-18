@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football_app/api/resource.dart';
 import 'package:football_app/bloc/countries_bloc.dart';
 import 'package:football_app/bloc/leagues_bloc.dart';
-import 'package:football_app/bloc/splash_bloc.dart';
 import 'package:football_app/bloc/search_club_bloc.dart';
+import 'package:football_app/bloc/splash_bloc.dart';
+import 'package:football_app/bloc/theme_bloc.dart';
+import 'package:football_app/event/football_request_event.dart';
 import 'package:football_app/model/country.dart';
 import 'package:football_app/model/league.dart';
 import 'package:football_app/model/team.dart';
 import 'package:football_app/route/app_route.dart';
 import 'package:football_app/screen/splash_screen.dart';
-import 'package:football_app/event/football_request_event.dart';
 
 void main() {
   runApp(MultiBlocProvider(
@@ -33,11 +34,19 @@ void main() {
           Resource<TeamResponse>(),
         ),
       ),
+      BlocProvider(
+        create: (_) => ThemeBloc(true),
+      ),
     ],
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: (settings) => AppRoute.onGenerateRoute(settings),
-      home: MyApp(),
+    child: BlocBuilder<ThemeBloc, bool>(
+      builder: (BuildContext context, bool isLightTheme) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: (settings) => AppRoute.onGenerateRoute(settings),
+          home: MyApp(),
+          theme: isLightTheme ?? true ? ThemeData.light() : ThemeData.dark(),
+        );
+      },
     ),
   ));
 }

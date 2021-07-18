@@ -7,4 +7,6 @@ class Constants {
   static const String urlClubByCountry = "search_all_teams.php?s=Soccer";
   static const String urlEventByLeagueId = "eventspastleague.php";
   static const String urlClubByName = "searchteams.php";
+
+  static const String themeData = "football_app_theme_data";
 }
